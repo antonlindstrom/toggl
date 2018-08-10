@@ -34,6 +34,8 @@ func main() {
 	app.Version = Version
 	app.Usage = "Time tracking app CLI."
 
+	app.EnableBashCompletion = true
+
 	if err := loadConfig(); err != nil {
 		log.Fatalf("error: can't load config - %s", err)
 	}
@@ -214,8 +216,8 @@ func main() {
 
 					fmt.Printf(
 						"* %s - %s > %s",
-						entry.Start.Format(time.Stamp),
-						entry.Stop.Format(time.Stamp),
+						entry.Start.Local().Format(time.Stamp),
+						entry.Stop.Local().Format(time.Stamp),
 						duration2str(duration),
 					)
 
