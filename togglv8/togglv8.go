@@ -12,8 +12,7 @@ const (
 	// APIBase is the base rest API URL
 	APIBase = "https://www.toggl.com/api/v8"
 	// Version is current version
-	Version  = "0.1.2"
-	rcEnvKey = "TOGGLRC"
+	Version = "0.1.2"
 )
 
 // Project is a toggl project.
@@ -69,8 +68,7 @@ func (c *Client) Projects() ([]Project, error) {
 	defer resp.Body.Close()
 
 	var ps []Project
-	err = json.NewDecoder(resp.Body).Decode(&ps)
-	return ps, err
+	return ps, json.NewDecoder(resp.Body).Decode(&ps)
 }
 
 // CurrentTimer returns the current running timer.
@@ -223,7 +221,7 @@ func (c *Client) StopTimer(id int) (time.Duration, error) {
 		return 0, err
 	}
 
-	return time.Duration(time.Duration(response.Data.Duration) * time.Second), nil
+	return time.Duration(response.Data.Duration) * time.Second, nil
 }
 
 // Timers lists time entries, defaults to date range of 9 days.
@@ -240,8 +238,7 @@ func (c *Client) Timers() ([]TimeEntry, error) {
 	defer resp.Body.Close()
 
 	var response []TimeEntry
-	err = json.NewDecoder(resp.Body).Decode(&response)
-	return response, err
+	return response, json.NewDecoder(resp.Body).Decode(&response)
 }
 
 // Do makes a request with headers set with the HTTP client specified in

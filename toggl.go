@@ -195,7 +195,7 @@ func main() {
 
 				// Map the projects up to be able to display
 				// the names.
-				projects := make(map[int]string, 0)
+				projects := make(map[int]string)
 				for _, p := range prjs {
 					projects[p.ID] = p.Name
 				}
@@ -208,7 +208,7 @@ func main() {
 				for _, entry := range entries {
 					var ongoing bool
 
-					duration := time.Duration(time.Duration(entry.Duration) * time.Second)
+					duration := time.Duration(entry.Duration) * time.Second
 					if duration < 0 {
 						ongoing = true
 						duration = time.Since(entry.Start)
@@ -257,7 +257,7 @@ func main() {
 						continue
 					}
 
-					duration := time.Duration(time.Duration(entry.Duration) * time.Second)
+					duration := time.Duration(entry.Duration) * time.Second
 					if duration < 0 {
 						duration = time.Since(entry.Start)
 					}
